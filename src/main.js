@@ -3,10 +3,17 @@
 import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
-import Semnatic from '../semantic/dist/semantic.css'
+// reqsuire('../node_modules/jquery/dist/jquery.js')
+import '../semantic/dist/semantic.css'
+// import '../semantic/dist/semantic.js'
 
 Vue.use(VueRouter)
 
+const routes = [
+  { path: '/', component: App },
+  // { path: '/user/:id', component: User }
+
+]
 new Vue({
   el: '#app',
   template: '<App/>',

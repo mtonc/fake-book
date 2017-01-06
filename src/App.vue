@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <newsfeed></newsfeed>
+  <div id="app" class="ui grid">
+    <newsfeed class="ten wide column"></newsfeed>
   </div>
 </template>
 

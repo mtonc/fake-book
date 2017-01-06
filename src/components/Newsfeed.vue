@@ -1,25 +1,44 @@
 <template>
   <div id="newsfeed" class="ui centered grid">
     <h3>Newsfeed</h3>
-    <ul id="posts" class="ui centered cards">
-      <li v-for="post in posts" class="card">
+    <ul id="posts">
+      <li v-for="post in posts" class="ui fluid card">
         <div class="content">
-          <div class="header">
+          <div class="left aligned header">
             {{ post.title}}
           </div>
-          <div class="descritption">
+          <div class="left aligned meta">
+            <a href="/user/:post.userId">{{userNameFromId(post.userId)}}</a>
+          </div>
+        </div>
+        <div class="content">
+          <div class="left aligned descritption">
             {{post.body}}
           </div>
         </div>
         <div class="extra content">
-          {{userIdName(post.userID)}}
+          <div class="">
+            <h3 class="left aligned header">
+              Comments
+            </h3>
+            <div class="content">
+              <div class="ui comments">
+                <div v-for="comment in loadComments(post.id)" class="comment">
+                  <div class="content">
+                    <div class="left aligned author">
+                      {{comment.name}}
+                    </div>
+                    <div class="left aligned text">
+                      {{comment.body}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </li>
     </ul>
-
-    <div class="test">
-      {{ test }}
-    </div>
   </div>
 </template>
 
@@ -34,9 +53,9 @@
     name: 'newsfeed',
     data() {
       return {
-        test: "This is a test",
         posts: [],
-        users: []
+        users: [],
+        comments: []
       }
     },
     methods: {
@@ -51,15 +70,31 @@
           })
         })
       },
-      userIdName: function(id){
-        return this.users[id].name
-      }
+      userNameFromId: function(userId) {
+        var ret = -1
+        this.users.forEach(function(user) {
+          if ( user.id == userId ) {
+            ret = user.name
+          }
+        })
+        return ret
+      },
+      loadComments: function(passedId) {
+        var ret = []
+        this.comments.forEach(function(comment) {
+          if ( comment.postId == passedId ) {
+            ret.push(comment)
+          }
+        })
+        return ret
+      },
     },
-    mounted: function() {
-      this.getParam("posts")
-      this.getParam("users")
-    }
+  mounted: function() {
+    this.getParam("posts")
+    this.getParam("users")
+    this.getParam("comments")
   }
+}
 </script>
 <style>
   #newsfeed .card {
