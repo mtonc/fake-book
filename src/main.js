@@ -2,19 +2,29 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import VueRouter from 'vue-router'
-// reqsuire('../node_modules/jquery/dist/jquery.js')
+import Newsfeed from './components/Newsfeed'
+import User from './components/User'
 import '../semantic/dist/semantic.css'
-// import '../semantic/dist/semantic.js'
+import '../semantic/dist/semantic.js'
+
+import VueRouter from 'vue-router'
+import VueResource from 'vue-resource'
+
 
 Vue.use(VueRouter)
+Vue.use(VueResource)
 
 const routes = [
-  { path: '/', component: App },
-  // { path: '/user/:id', component: User }
-
+  { path: '/', component: Newsfeed  },
+  { path: '/user/:id', name: 'user', component: User  }
 ]
+
+const router = new VueRouter({
+  routes
+})
+
 new Vue({
+  router,
   el: '#app',
   template: '<App/>',
   components: {

@@ -1,6 +1,8 @@
 <template>
-  <div id="app" class="ui grid">
-    <newsfeed class="ten wide column"></newsfeed>
+  <div id="app" class="ui centered grid">
+    <div class="ten wide column">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -10,7 +12,6 @@ import Newsfeed from './components/Newsfeed.vue'
 export default {
   name: 'app',
   components: {
-    Newsfeed
   },
 }
 </script>
